@@ -1,16 +1,27 @@
-# This is a sample Python script.
+import time
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from selenium import webdriver
+from bs4 import BeautifulSoup
 
+FIRST_DELAY = 3
+DELAY_SECONDS = 1
+TIMES = 13
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+driver = webdriver.Safari()
 
+driver.get("https://store.steampowered.com/search/?filter=globaltopsellers")
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+time.sleep(FIRST_DELAY)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+for i in range(TIMES):
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(DELAY_SECONDS)
+
+soup = BeautifulSoup(driver.page_source, "html.parser")
+
+soup = soup.find("div", {"id": "search_resultsRows"})
+
+soup = soup.find_all("a", {"class": "search_result_row ds_collapse_flag"})
+
+for link in soup:
+    print(link.get("href"))
