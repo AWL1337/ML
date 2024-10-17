@@ -1,27 +1,8 @@
-import time
+from parse.parceSite import parce_site
+from export.toArff import save_to_arff
+from export.toTsv import save_to_tsv
 
-from selenium import webdriver
-from bs4 import BeautifulSoup
+data = parce_site()
 
-FIRST_DELAY = 3
-DELAY_SECONDS = 1
-TIMES = 13
-
-driver = webdriver.Safari()
-
-driver.get("https://store.steampowered.com/search/?filter=globaltopsellers")
-
-time.sleep(FIRST_DELAY)
-
-for i in range(TIMES):
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(DELAY_SECONDS)
-
-soup = BeautifulSoup(driver.page_source, "html.parser")
-
-soup = soup.find("div", {"id": "search_resultsRows"})
-
-soup = soup.find_all("a", {"class": "search_result_row ds_collapse_flag"})
-
-for link in soup:
-    print(link.get("href"))
+save_to_tsv(data)
+save_to_arff(data)
