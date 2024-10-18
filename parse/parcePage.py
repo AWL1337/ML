@@ -67,7 +67,17 @@ def get_reviews(x):
 
 
 def get_price(x):
-    price = get_val(x)
+    price = get_val(x).replace(",", ".").replace("€", "").replace(" руб.", "")
     if price == "Free To Play":
         return 0
-    return price.replace(",", ".").replace("€", "").replace(" руб.", "").strip()
+    if not is_num(price):
+        return ""
+    return price
+
+
+def is_num(x):
+    try:
+        float(x)
+        return True
+    except ValueError:
+        return False
