@@ -25,7 +25,7 @@ def save_to_arff(data, filename="data/games_data.arff"):
                 row[2],  # ReleaseDate
                 row[3],  # Votes
                 row[4],  # PositiveVotesPercent
-                row[5],  # Rating (категория)
+                row[5],  # Rating
                 row[6],  # Price
                 row[7]  # Tags
             ]
