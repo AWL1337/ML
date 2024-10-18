@@ -4,17 +4,15 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from parse.parcePage import parce_page
 
-FIRST_DELAY = 1
 DELAY_SECONDS = 1
-TIMES = 0
-
+TIMES = 15
 
 def parce_site():
     driver = webdriver.Safari()
 
     driver.get("https://store.steampowered.com/search/?filter=globaltopsellers")
 
-    time.sleep(FIRST_DELAY)
+    time.sleep(DELAY_SECONDS)
 
     for i in range(TIMES):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
