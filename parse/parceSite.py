@@ -7,6 +7,7 @@ from parse.parcePage import parce_page
 DELAY_SECONDS = 1
 TIMES = 15
 
+
 def parce_site():
     driver = webdriver.Safari()
 
