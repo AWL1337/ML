@@ -2,7 +2,7 @@ import time
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
-from parcePage import parce_page
+from parse.parcePage import parce_page
 
 FIRST_DELAY = 1
 DELAY_SECONDS = 1

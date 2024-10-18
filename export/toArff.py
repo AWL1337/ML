@@ -35,4 +35,4 @@ def save_to_arff(data, filename="data/games_data.arff"):
 def format_data(data):
     if data == "?":
         return data
-    return f'"{data}"'
+    return f"'{data}'"

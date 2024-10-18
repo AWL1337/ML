@@ -69,4 +69,4 @@ def get_price(x):
     price = get_val(x)
     if price == "Free To Play":
         return 0
-    return price.replace(",", ".").replace("€", "").strip()
+    return price.replace(",", ".").replace("€", "").replace(" руб.", "").strip()
