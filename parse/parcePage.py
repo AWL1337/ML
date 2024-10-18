@@ -45,7 +45,8 @@ def get_date(x):
 def get_tags(x):
     tags = []
     if x is None:
-        return {}
+        tags.append('None')
+        return set(tags)
     for tag in x:
         tags.append(tag.text.strip())
     tags = set(tags)
