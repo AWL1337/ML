@@ -18,6 +18,8 @@ def process_data():
 
     selected_tags = {'PvE', 'PvP', 'Sci-fi', 'FPS', 'Simulation', 'Action', 'Sandbox', 'Open World', 'Adventure'}
 
+    df['Rating'] = df['Rating'].apply(lambda x: replaceEstim(x))
+
     df['Tags'] = df['Tags'].apply(lambda x: eval(x))
 
     filtered_df = df[df['Tags'].apply(lambda tags: bool(selected_tags & tags))]
@@ -58,6 +60,11 @@ def process_data():
 
     df.to_csv('../data/games_data.csv', index=False)
 
+
+def replaceEstim(x):
+    if x in ['Overwhelmingly Positive', 'Very Positive', 'Mostly Positive', 'Positive', 'Mixed', 'Negative', 'Mostly Negative', 'Very Negative', 'Overwhelmingly Negative']:
+        return x
+    return None
 
 if __name__ == '__main__':
     process_data()
