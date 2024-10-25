@@ -48,13 +48,14 @@ def process_data():
 
     df['Developer'] = pd.factorize(df['Developer'])[0]
 
+    z_normalize(df, 'Name')
+    z_normalize(df, 'Developer')
+
     one_hot = df['Tags'].str.get_dummies(sep=', ')
 
     df_numeric = df.drop(['Tags'], axis=1)
     rating = df_numeric['Rating']
     df_numeric = df_numeric.drop(['Rating'], axis=1)
-
-    df_numeric = (df_numeric-df_numeric.mean())/df_numeric.std()
 
     df = pd.concat([rating, df_numeric, one_hot], axis=1)
 
@@ -65,6 +66,7 @@ def replaceEstim(x):
     if x in ['Overwhelmingly Positive', 'Very Positive', 'Mostly Positive', 'Positive', 'Mixed', 'Negative', 'Mostly Negative', 'Very Negative', 'Overwhelmingly Negative']:
         return x
     return None
+
 
 if __name__ == '__main__':
     process_data()
