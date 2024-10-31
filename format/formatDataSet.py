@@ -40,6 +40,7 @@ def process_data():
     fill_with_mean(df, 'Votes')
     fill_with_mean(df, 'PositiveVotesPercent')
     fill_with_mean(df, 'Price')
+    fill_with_mean(df, 'ReleaseDate')
 
     most_frequent = df['Rating'].mode()[0]
     df['Rating'] = df['Rating'].fillna(most_frequent)
