@@ -7,12 +7,12 @@ import Neighbors
 
 class KNN:
     def __init__(self, radius=None, k=None, weights=None,
-                 knn_metric=Metric.Minkowski(2), knn_kernel=Kernel.GaussianKernel()):
+                 knn_metric='Minkowski_2', knn_kernel='Gaussian'):
         self.radius = radius
         self.k = k
         self.weights = weights
-        self.knn_metric = knn_metric
-        self.knn_kernel = knn_kernel
+        self.knn_metric = Metric.get_metric(knn_metric)
+        self.knn_kernel = Kernel.get_kernel(knn_kernel)
         self.x_train = []
         self.y_train = []
         self.neighbors = None

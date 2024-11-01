@@ -1,6 +1,14 @@
 import numpy as np
 
 
+def get_metric(name):
+    if name == 'Cosine':
+        return Cosine()
+    if name.startswith('Minkowski_'):
+        p = int(name.split('_')[1])
+        return Minkowski(p)
+
+
 class Metric:
     def __init__(self, name):
         self.name = name

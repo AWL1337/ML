@@ -3,6 +3,16 @@ import math
 import numpy as np
 
 
+def get_kernel(kernel_type):
+    if kernel_type == 'Gaussian':
+        return GaussianKernel()
+    if kernel_type == 'Uniform':
+        return UniformKernel()
+    if kernel_type.startswith('General_'):
+        a, b = map(int, kernel_type.split('_')[1:])
+        return GeneralKernel(a, b)
+
+
 class Kernel:
     def __init__(self, name):
         self.name = name
@@ -26,7 +36,7 @@ class UniformKernel(Kernel):
     def get_name(self):
         return super().name
 
-    def process(data):
+    def process(self, data):
         return np.ones_like(data)
 
 

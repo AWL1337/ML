@@ -13,8 +13,11 @@ class Neighbors:
         if self.radius is not None:
             for i, point in enumerate(self.x_train):
                 dist = self.knn_metric.measure(x, point)
-                if dist <= self.radius:
+                if abs(dist) <= self.radius:
                     points.append((dist, i))
+
+            if len(points) == 0:
+                self.k = 1
 
         if self.k is not None:
             for i, point in enumerate(self.x_train):
