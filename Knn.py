@@ -27,16 +27,16 @@ class KNN:
         predictions = []
 
         for i, point in enumerate(x):
-            w = self.knn_kernel.process(dist[i])
+            weights = self.knn_kernel.process(dist[i])
 
             if self.weights is not None:
                 a_w = [self.weights[idx] for idx in index[i]]
-                w = [a_w * w for a_w, w in zip(a_w, w)]
+                weights = [a_w * w for a_w, w in zip(a_w, weights)]
 
-            answers = [self.y_train[i] for i in index[i]]
+            answers = [self.y_train[k] for k in index[i]]
 
             s = defaultdict(int)
-            for ans, w in zip(answers, w):
+            for ans, w in zip(answers, weights):
                 s[ans] += w
 
             prediction = max(s, key=s.get)
