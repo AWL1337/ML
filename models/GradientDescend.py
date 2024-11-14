@@ -26,7 +26,7 @@ class GradientDescend:
         elif self.loss == 'sigmoid':
             sigmoid = 1 / (1 + np.exp(-np.clip(margin, -500, 500)))
             dL = -2 * sigmoid * (1 - sigmoid)
-        elif self.loss == 'exponential':
+        elif self.loss == 'exp':
             dL = -np.exp(-np.clip(margin, -500, 500))
 
         dW = x.T @ dL / x.shape[0]

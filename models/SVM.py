@@ -21,17 +21,12 @@ class SVM:
 
         self.alpha = np.zeros(x.shape[0])
 
-        K = self.kernel_matrix(x.shape[0])
+        K = self.kernel_matrix(x)
 
         for _ in range(self.max_iters):
             for i in range(x.shape[0]):
-
-                gradient = self.gradient(K, y, i)
-
-                self.alpha[i] = self.alpha[i] - self.learning_rate * gradient
+                self.alpha[i] = self.alpha[i] - self.learning_rate * self.gradient(K, y, i)
                 self.alpha[i] = np.clip(self.alpha[i], 0, self.C)
-
-                self.alpha -= np.sum(self.alpha * y) / np.sum(y) * y
 
         self.b = np.mean(y - np.dot(K, (self.alpha * y)))
 
