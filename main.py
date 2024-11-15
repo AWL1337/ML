@@ -24,3 +24,9 @@ best_params = params.choose_gd()
 print("GradientDescend")
 print(f"Parameters: {best_params[0]}")
 print(f"Accuracy: {best_params[1]}")
+
+best_params = params.choose_swm()
+
+print("SVM")
+print(f"Parameters: {best_params[0]}")
+print(f"Accuracy: {best_params[1]}")

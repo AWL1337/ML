@@ -2,13 +2,11 @@ import numpy as np
 
 
 class SVM:
-    def __init__(self, C=1.0, learning_rate=0.30, max_iters=1000, kernel='linear', degree=3, gamma=0.1, r=1.0):
+    def __init__(self, C=1.0, learning_rate=0.30, max_iters=1000, kernel='linear', r=1.0):
         self.C = C
         self.learning_rate = learning_rate
         self.max_iters = max_iters
         self.kernel = kernel
-        self.degree = degree
-        self.gamma = gamma
         self.r = r
         self.alpha = None
         self.b = 0
@@ -40,14 +38,15 @@ class SVM:
     def kernelf(self, x1, x2):
         if self.kernel == 'linear':
             return np.dot(x1, x2)
-        elif self.kernel == 'polynomial':
-            return (np.dot(x1, x2) + 1) ** self.degree
-        elif self.kernel == 'rbf':
-            return np.exp(-self.gamma * np.linalg.norm(x1 - x2) ** 2)
-        elif self.kernel == 'sigmoid':
-            return np.tanh(self.gamma * np.dot(x1, x2) + self.r)
-        elif self.kernel == 'laplacian':
-            return np.exp(-self.gamma * np.linalg.norm(x1 - x2, ord=1))
+        elif self.kernel.startswith('polynomial_'):
+            degree = int(self.kernel.split('_')[1])
+            return (np.dot(x1, x2) + 1) ** degree
+        elif self.kernel.startswith('rfb_'):
+            gamma = float(self.kernel.split('_')[1])
+            return np.exp(-gamma * np.linalg.norm(x1 - x2) ** 2)
+        elif self.kernel.startswith('sigmoid_'):
+            gamma, r = map(float, self.kernel.split('_')[1:])
+            return np.tanh(gamma * np.dot(x1, x2) + r)
 
     def gradient(self, K, y, i):
         return np.sum(self.alpha * y * K[:, i]) - 1
