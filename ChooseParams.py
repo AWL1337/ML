@@ -42,7 +42,7 @@ class ChooseParams:
 
         learning_rate = trial.suggest_float('learning_rate', 0.0, 0.99)
 
-        max_iter = trial.suggest_int('max_iter', 100, 1000)
+        max_iter = trial.suggest_int('max_iter', 500, 1000)
 
         lambda1 = trial.suggest_float('lambda1', 0.0, 1.0)
         lambda2 = trial.suggest_float('lambda2', 0.0, 1.0)
@@ -84,7 +84,7 @@ class ChooseParams:
 
         learning_rate = trial.suggest_float('learning_rate', 0.0, 0.99)
 
-        max_iter = trial.suggest_int('max_iter', 100, 1000)
+        max_iter = trial.suggest_int('max_iter', 500, 1000)
 
         r = SVM.SVM(C=C, learning_rate=learning_rate, max_iters=max_iter, kernel=kernel)
 
@@ -98,5 +98,5 @@ class ChooseParams:
 
     def choose_swm(self):
         study = optuna.create_study(direction='maximize')
-        study.optimize(self.objective_swm, n_trials=200)
+        study.optimize(self.objective_swm, n_trials=50)
         return study.best_params, study.best_value

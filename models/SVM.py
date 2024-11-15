@@ -2,12 +2,11 @@ import numpy as np
 
 
 class SVM:
-    def __init__(self, C=1.0, learning_rate=0.30, max_iters=1000, kernel='linear', r=1.0):
+    def __init__(self, C=1.047, learning_rate=0.228, max_iters=954, kernel='rfb_0.3'):
         self.C = C
         self.learning_rate = learning_rate
         self.max_iters = max_iters
         self.kernel = kernel
-        self.r = r
         self.alpha = None
         self.b = 0
         self.x_train = None

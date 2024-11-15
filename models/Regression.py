@@ -2,7 +2,7 @@ import numpy as np
 
 
 class Regression:
-    def __init__(self, alpha=1.0):
+    def __init__(self, alpha=0.23):
         self.alpha = alpha
         self.w = None
 
