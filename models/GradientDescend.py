@@ -1,8 +1,8 @@
 import numpy as np
 
-
+#
 class GradientDescend:
-    def __init__(self, learning_rate=0.90, max_iter=1000, alpha=0.5, lambda1=0.1, lambda2=0.1, loss='sigmoid'):
+    def __init__(self, learning_rate=0.72, max_iter=800, alpha=0.7, lambda1=0.4, lambda2=0.6, loss='log'):
         self.learning_rate = learning_rate
         self.max_iter = max_iter
         self.alpha = alpha
