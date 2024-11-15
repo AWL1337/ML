@@ -3,7 +3,7 @@ from models import GradientDescend
 from models import SVM
 import optuna
 
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import f1_score
 
 
 class ChooseParams:
@@ -25,7 +25,7 @@ class ChooseParams:
 
         y = r.predict(self.x_val)
 
-        accuracy = accuracy_score(self.y_val, y)
+        accuracy = f1_score(self.y_val, y)
 
         return accuracy
 
@@ -54,7 +54,7 @@ class ChooseParams:
 
         y = r.predict(self.x_val)
 
-        accuracy = accuracy_score(self.y_val, y)
+        accuracy = f1_score(self.y_val, y)
 
         return accuracy
 
@@ -92,7 +92,7 @@ class ChooseParams:
 
         y = r.predict(self.x_val)
 
-        accuracy = accuracy_score(self.y_val, y)
+        accuracy = f1_score(self.y_val, y)
 
         return accuracy
 
