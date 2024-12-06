@@ -18,6 +18,7 @@ class DecisionTree:
         self.max_depth = max_depth
         self.min_samples = min_samples
         self.info = info
+        self.curr_max_depth = 0
 
     def fit(self, x, y):
         self.tree = self._build_tree(x, y)
@@ -62,6 +63,7 @@ class DecisionTree:
                 or n_samples < self.min_samples
                 or (self.max_depth is not None and depth >= self.max_depth)):
             most_common_class = Counter(y).most_common(1)[0][0]
+            self.curr_max_depth = max(depth, self.curr_max_depth)
             return DecisionNode(value=most_common_class)
 
         best_feature, best_threshold, best_gain = None, None, 0
@@ -83,8 +85,10 @@ class DecisionTree:
 
         if best_gain == 0:
             most_common_class = Counter(y).most_common(1)[0][0]
+            self.curr_max_depth = max(depth, self.curr_max_depth)
             return DecisionNode(value=most_common_class)
 
         left_subtree = self._build_tree(x[best_left_indices], y[best_left_indices], depth + 1)
         right_subtree = self._build_tree(x[best_right_indices], y[best_right_indices], depth + 1)
+        self.curr_max_depth = max(depth, self.curr_max_depth)
         return DecisionNode(feature=best_feature, threshold=best_threshold, left=left_subtree, right=right_subtree)
