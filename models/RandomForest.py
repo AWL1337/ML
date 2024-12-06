@@ -12,7 +12,7 @@ def random_subset(x, y, subset_size):
 
 
 class RandomForest:
-    def __init__(self, n_trees=5, max_depth=None, info="entropy", min_samples=2, train_size=0.8):
+    def __init__(self, n_trees=100, max_depth=None, info="entropy", min_samples=2, train_size=0.8):
         self.n_trees = n_trees
         self.max_depth = max_depth
         self.min_samples = min_samples
