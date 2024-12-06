@@ -1,5 +1,6 @@
 import numpy as np
 from collections import Counter
+from info.Info import Entropy, Gini
 
 
 class DecisionNode:
@@ -32,6 +33,27 @@ class DecisionTree:
         else:
             return self._predict_node(tree.right, x)
 
+    def _information_gain(self, y, left_indices, right_indices):
+        func = 0
+        if self.info == "gini":
+            func = Gini()
+        elif self.info == "entropy":
+            func = Entropy()
+
+        parent = func.process(y)
+        n = len(y)
+        n_left = len(left_indices)
+        n_right = len(right_indices)
+
+        if n_left == 0 or n_right == 0:
+            return 0
+
+        left = func.process(y[left_indices])
+        right = func.process(y[right_indices])
+
+        weighted = (n_left / n) * left + (n_right / n) * right
+        return parent - weighted
+
     def _build_tree(self, x, y, depth=0):
         n_samples, n_features = x.shape
         unique_classes = np.unique(y)
@@ -51,7 +73,7 @@ class DecisionTree:
                 left_indices = np.where(x[:, feature] <= threshold)[0]
                 right_indices = np.where(x[:, feature] > threshold)[0]
 
-                gain = information_gain(y, left_indices, right_indices)
+                gain = self._information_gain(y, left_indices, right_indices)
                 if gain > best_gain:
                     best_gain = gain
                     best_feature = feature
@@ -66,24 +88,3 @@ class DecisionTree:
         left_subtree = self._build_tree(x[best_left_indices], y[best_left_indices], depth + 1)
         right_subtree = self._build_tree(x[best_right_indices], y[best_right_indices], depth + 1)
         return DecisionNode(feature=best_feature, threshold=best_threshold, left=left_subtree, right=right_subtree)
-
-    def information_gain(self, y, left_indices, right_indices):
-        func = 0
-        if (self.info == "gini"):
-            func =
-
-        parent_entropy = entropy(y)
-        n = len(y)
-        n_left = len(left_indices)
-        n_right = len(right_indices)
-
-        if n_left == 0 or n_right == 0:
-            return 0
-
-        left_entropy = entropy(y[left_indices])
-        right_entropy = entropy(y[right_indices])
-
-        weighted_entropy = (n_left / n) * left_entropy + (n_right / n) * right_entropy
-        return parent_entropy - weighted_entropy
-
-
