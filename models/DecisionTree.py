@@ -13,10 +13,10 @@ class DecisionNode:
 
 
 class DecisionTree:
-    def __init__(self, max_depth=None, min_samples_split=2, info="entropy"):
+    def __init__(self, max_depth=None, min_samples=2, info="entropy"):
         self.tree = None
         self.max_depth = max_depth
-        self.min_samples_split = min_samples_split
+        self.min_samples = min_samples
         self.info = info
 
     def fit(self, x, y):
@@ -59,7 +59,7 @@ class DecisionTree:
         unique_classes = np.unique(y)
 
         if (len(unique_classes) == 1
-                or n_samples < self.min_samples_split
+                or n_samples < self.min_samples
                 or (self.max_depth is not None and depth >= self.max_depth)):
             most_common_class = Counter(y).most_common(1)[0][0]
             return DecisionNode(value=most_common_class)
